@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>The Bullpen</title>
+
+    <!-- STYLESHEETS -->
+    <link href="https://fonts.googleapis.com/css?family=Anton|Baloo+Bhaina|Raleway" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <link id="favicon" rel="shortcut icon" type="image/x-icon" href="images/supe_favicon.ico">
+
+    <!--TODO: Google fonts won't render. Why oh why?-->
+
+    <!-- VENDOR SCRIPTS -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
+<!--Trying this Handlebars template. Update: regretting it.-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <button class='show btn-lg btn-primary' data-popup-open="popup-1" href="#">WTH?!?</button>
+          <h1>The Bullpen</h1>
+
+          <main></main>
+        </div>
+      </div>
+    </div>
+    <!--TODO: fix the field prompts. Here they "satisfy" the required field mandate. Kill required, kill prompts, or reconcile-->
+    <script id="handlebars-template" type="text/x-handlebars-template">
+        <h3>Need a reliever? Just a few details...</h3>
+        <form class='addNudateForm'>
+            <div class='form-group'>
+                <label for='name' type='text'>What should we call you?</label>
+                <input type="text" class="form-control" placeholder="Be as anonymous as you wanna...or not." name="name" id="name" />
+            </div>
+            <div class='form-group'>
+                <label for='location' type='text'>Your date location:</label>
+                <input type="text" class="form-control" placeholder="The bar/resto name will do. Maybe the neighborhood." name="location" id="location" />
+            </div>
+            <div class='form-group'>
+                <label for='moment' type='text'>When Is it?</label>
+                <input type="text" class="form-control" placeholder="Time and date please." name="moment" id="moment" />
+            </div>
+            <div class='form-group'>
+                <label for='secretSign' type='text'>What's your secret sign?</label>
+                <input type="text" class="form-control" placeholder="Run you finger around your wine glass, or fold a napkin into oragami, or scream PLEASE SAVE ME..." name="secretSign" id="secretSign" />
+            </div>
+            <div class='form-group'>
+                <label for='image'>Image</label>
+                <input name='image' id='image' class="form-control" placeholder="You hafta put a URL here because the developer is a noobie.">
+            </div>
+            <button type='submit' class='submitAdd btn-lg btn-primary'>Submit</button>
+        </form>
+        <h3>You wanna <strong>be</strong> a reliever? Get warmed up here:</h3>
+        <ul>
+            {{#each nudates}}
+            <li class='row'>
+                <div class='col-md-2'><img src={{image}} id="frame"></div>
+                <div class='col-md-4'>
+                    <h2>{{name}}</h2>
+                    <h4>Location:</h4><p>  {{location}}</p>
+                    <h4>When:</h4><p> {{moment}}</p>
+                    <h4>How I'll signal for help:</h4><p> {{secretSign}}</p>
+                </div>
+                <div class='col-md-2'>
+                    <button class='show btn-lg btn-primary' data-id={{_id}}>Show More</button>
+                    <button class='delete btn-lg btn-danger' data-id={{_id}}>Delete</button>
+                </div>
+            </li>
+            {{/each}}
+        </ul>
+    </script>
+
+<!--This is a separate template just to show one date.-->
+    <script id="one-nudate-template" type="text/x-handlebars-template">
+        <h2>{{name}}</h2>
+        <img src={{image}} id="frame">
+        <p>Will be at: {{location}}</p>
+        <p>Sometime around: {{moment}}</p>
+        <p>Signaling for a reliever by: {{secretSign}}</p>
+        <button class='delete btn btn-danger btn-lg' data-id={{_id}}>Delete</button>
+
+        <button class='home btn btn-primary btn-lg'>HOME</button>
+
+        <form class='editNudateForm'>
+            <h4>Plans changed? Edit your details:</h4>
+            <div>
+                <label for='name' type='text'>Who:</label>
+                <input name='name' id='name' class="form-control" placeholder={{name}}>
+            </div>
+            <div>
+                <label for='location' type='text'>Where:</label>
+                <input name='location' id='location' class="form-control" placeholder={{location}}>
+            </div>
+            <div>
+                <label for='moment' type='number'>When:</label>
+                <input name='moment' id='moment' class="form-control" placeholder={{moment}}>
+            </div>
+            <div>
+                <label for='secretSign' type='text'>What's the secret signal?</label>
+                <input name='secretSign' id='secretSign' class="form-control" placeholder={{secretSign}}>
+            </div>
+            <div>
+                <label for='image'>Image:</label>
+                <input name='image' id='image' class="form-control" placeholder={{image}}>
+            </div>
+            <button type='submit' class='submitEdit btn btn-primary' data-id={{_id}}>Change it!</button>
+        </form>
+    </script>
+    <!-- APPLICATION SCRIPTS -->
+    <script src="/scripts/app.js"></script>
+  </body>
+  <footer>
+<!--Trying popup -->
+<div class="popup" data-popup="popup-1">
+    <div class="popup-inner">
+        <h2>So there's this wine bar on Polk Street...</h2>
+        <h4>And it's nice, but not too nice. Nicer than a real drinkin' bar. But not all frou-frou like a wine bar.</h4>
+          <h4>And on Mondays, Tuesdays and Wednesdays...</h4>
+          <h4>...at exactly 7pm...</h4>
+          <h4>...the Tinder first-dates meet up. And it's hilarious. The awkward hug. The pretending-to-be. And the locals all watch, judging body language and placing bets on whether it works or not.</h4>
+          <h4>More often, not.</h4>
+          <h4>That's why I invented <strong>The Bullpen</strong>! Post your meetup here, and when the "starter" fails, call The Bullpen! Just flash your secret sign, and a friend, a staff member, or maybe a better date will come relieve you. OH? It's NOT a date? The Bullpen works great for business meetings, family visits, and all sorts of uncomfortable get-togethers! Welcome to the best exit strategy you've ever had!</h4>
+        <p><a data-popup-close="popup-1" href="#">Let's do it!</a></p>
+        <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
+    </div>
+</div>
+    <h4><a href="/api">Read My API Documentation</a></h4>
+  </footer>
+</html>

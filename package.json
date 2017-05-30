@@ -1,0 +1,29 @@
+{
+  "name": "poliholic",
+  "version": "0.0.1",
+  "description": "GA SF WDI 38 Personal API Lab",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "bootstrap": "^3.3.7",
+    "express": "^4.15.3",
+    "express-session": "^1.15.3",
+    "mongoose": "^4.10.3",
+    "nodemon": "^1.11.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/poliholic/poliholicAPI.git"
+  },
+  "author": "poliholic",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/poliholic/poliholicAPI/issues"
+  },
+  "homepage": "https://github.com/poliholic/poliholicAPI#readme"
+}
